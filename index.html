@@ -93,6 +93,40 @@ footer {
   background: rgba(0,0,0,0.2); /* biar ga aneh kalo ada sisa */
   box-shadow: 0 12px 30px rgba(0,0,0,0.35);
 }
+/* POPUP NOTIFIKASI */
+.popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 14px;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  z-index: 9999;
+  opacity: 0;
+  animation: popupShow 0.8s forwards;
+}
+
+@keyframes popupShow {
+  to {
+    opacity: 1;
+  }
+}
+
+.popup.hide {
+  animation: popupHide 0.8s forwards;
+}
+
+@keyframes popupHide {
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+}
 
 
 </style>
@@ -103,6 +137,11 @@ footer {
 <audio id="music" src="lagu.mp3" loop></audio>
 
 <div class="container">
+
+  <div id="popup" class="popup">
+  🎵 Jangan lupa tekan musik (kanan bawah) lalu tunggu 3 detikan 💖
+</div>
+
 
 <h1>HAPPY BIRTHDAY SAYANGKU</h1>
 
@@ -263,9 +302,24 @@ function rainEmoji() {
 }
 
 setInterval(rainEmoji, 350);
+
+/* POPUP AUTO HILANG */
+window.addEventListener("load", () => {
+  const popup = document.getElementById("popup");
+
+  // ilang setelah 4 detik
+  setTimeout(() => {
+    popup.classList.add("hide");
+  }, 4000);
+
+  // hapus dari DOM setelah animasi
+  setTimeout(() => {
+    popup.remove();
+  }, 5200);
+});
+
 </script>
 
 
 </body>
 </html>
-
